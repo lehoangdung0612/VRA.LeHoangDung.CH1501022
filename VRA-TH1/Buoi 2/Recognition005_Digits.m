@@ -1,10 +1,10 @@
 function Recognition004_Digits()
-    imgTrainAll = loadMNISTImages('D:/train-images.idx3-ubyte');
-    lblTrainAll = loadMNISTLabels('D:/train-labels.idx1-ubyte');
+    imgTrainAll = loadMNISTImages('train-images.idx3-ubyte');
+    lblTrainAll = loadMNISTLabels('train-labels.idx1-ubyte');
     Mdl = fitcknn(imgTrainAll', lblTrainAll);
     
-    imgTestAll = loadMNISTImages('D:/t10k-images.idx3-ubyte');
-    lblTestAll = loadMNISTLabels('D:/t10k-labels.idx1-ubyte');
+    imgTestAll = loadMNISTImages('t10k-images.idx3-ubyte');
+    lblTestAll = loadMNISTLabels('t10k-labels.idx1-ubyte');
     nTestImages = size(imgTestAll, 2);
     nNumber = randi([1 nTestImages]);
        

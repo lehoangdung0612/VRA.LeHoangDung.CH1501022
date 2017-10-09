@@ -1,11 +1,11 @@
 function Recognition004_Digits()
     fprintf('\n Load du lieu train');
-    imgTrainAll = loadMNISTImages('D:/train-images.idx3-ubyte');
-    lblTrainAll = loadMNISTLabels('D:/train-labels.idx1-ubyte');
+    imgTrainAll = loadMNISTImages('train-images.idx3-ubyte');
+    lblTrainAll = loadMNISTLabels('train-labels.idx1-ubyte');
     
     fprintf('\n Load du lieu test');
-    imgTestAll = loadMNISTImages('D:/t10k-images.idx3-ubyte');
-    lblTestAll = loadMNISTLabels('D:/t10k-labels.idx1-ubyte');
+    imgTestAll = loadMNISTImages('t10k-images.idx3-ubyte');
+    lblTestAll = loadMNISTLabels('t10k-labels.idx1-ubyte');
     
     nTrainImages = size(imgTrainAll, 2);
     nNumber = randi([1 nTrainImages]);
