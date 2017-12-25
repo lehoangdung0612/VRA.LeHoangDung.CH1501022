@@ -1,0 +1,28 @@
+- var dataSearchByAjax = searchByAjax.toString();
+
+div#image-viewer
+    img(src=imgPath)
+
+form#search-frm(method="post", action= urlAction, data-ajax-search= dataSearchByAjax)
+    div.input-group
+        input#query(type="hidden", name="q", value= imgFile)
+        input#crop-x(type="hidden", name="cx")
+        input#crop-y(type="hidden", name="cy")
+        input#crop-w(type="hidden", name="cw")
+        input#crop-h(type="hidden", name="ch")
+    div.radio-group
+        div Please select a feature:
+            span.radio
+                label
+                    input(type="radio", name="feature", value="sift", checked)
+                    | SIFT
+            span.radio
+                label
+                    input(type="radio", name="feature", value="surf")
+                    | SURF
+            span.radio
+                label
+                    input(type="radio", name="feature", value="rootsift")
+                    | ROOTSIFT
+
+    button#btn-submit(type="submit") Search

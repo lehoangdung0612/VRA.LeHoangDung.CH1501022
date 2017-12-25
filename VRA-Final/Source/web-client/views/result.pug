@@ -5,8 +5,8 @@ block content
     #wrapper
         .container
             if data.length > 0
-                h4 Showing results of #{data.length} images
                 div#img-container
+                    h4 Showing results of #{data.length} images
                     ol.list(type="1")
                         each item in data
                             li.image.loading

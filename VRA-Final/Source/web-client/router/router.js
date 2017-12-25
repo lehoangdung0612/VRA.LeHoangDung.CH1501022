@@ -68,7 +68,8 @@ router.post('/search', function(req, res) {
     	options.cx = req.body.cx;
     	options.cy = req.body.cy;
     	options.cw = req.body.cw;
-    	options.ch = req.body.ch;
+        options.ch = req.body.ch;
+    	options.feature = req.body.feature;
     	request.post(config.pyAPI.search, { form: options }, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var result = JSON.parse(body);

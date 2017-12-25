@@ -4,8 +4,10 @@
 @import url("https://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css");
 
 body{
-  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-  background: linear-gradient(to right, #25c481, #25b7c4);
+  background: url(../imgs/background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -14,27 +16,22 @@ body{
 }
 
 .headline {
-  background: -webkit-linear-gradient(left, #23bcd1, #357e5c);
-  background: linear-gradient(to right, #23bcd1, #357e5c);
+  background: -webkit-linear-gradient(#444, #655);
+  background: linear-gradient(#444, #655);
   color: white;
   text-align: center;
   padding: 20px 0;
   position: relative;
 }
 
-.headline::before, 
 .headline::after {
   content: '';
-  height: 4px;
+  height: 2px;
   width: 100%;
-  background-color: lightblue;
+  background-color: #655;
   display: block;
   left: 0;
   position: absolute;
-}
-
-.headline::before {
-  top: 0;
 }
 
 .headline::after {
@@ -115,11 +112,7 @@ body{
 }
 
 .form-upload {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  margin-top: 100px;
   width: 80%;
 }
 
@@ -138,9 +131,16 @@ body{
   width: 100%;
 }
 
+#img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #img-container .list {
   max-width: 600px;
-  margin: auto;
+  padding: 0;
+  margin: 0;
 }
 
 #img-container .image {
@@ -160,4 +160,12 @@ body{
 
 #img-container .image .score {
   text-align: center;
+}
+
+.radio-group .radio {
+    padding:  0 15px;
+}
+
+.radio-group .radio input {
+    margin-right: 5px;
 }

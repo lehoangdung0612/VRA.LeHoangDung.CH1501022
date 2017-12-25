@@ -44,8 +44,8 @@
             ///search by call ajax to Python API
             $('#btn-submit').on('click', function (e) {
                 e.preventDefault();
-                var template = '<h4>Showing results of {0} images</h4>' + 
-                                '<div id="search-container">' +
+                var template =  '<div id="search-container">' +
+                                    '<h4>Showing results of {0} images</h4>' + 
                                     '<ol class="list" type="1">{1}</ol>' +
                                 '</div>';
                 $.ajax({

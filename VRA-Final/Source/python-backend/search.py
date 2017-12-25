@@ -18,14 +18,14 @@ descriptorHandler = Descriptor(Config)
 settings = Config.Settings
 threshold = settings["SEARCH_THRESHOLD"]
 
-# filename = "{}/{}_{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], settings["FEATURE"], settings["IMAGE_PATHS_FILE"])
-# if db.checkFile(filename):
-#     image_paths = db.read(filename)
+Datasets = {}
 
-# load data features
-filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], settings["FEATURE"], Config.KMeans["TYPE"], settings["FEATURE_FILE"])
-if db.checkFile(filename):
-    (image_paths, im_features, idf, numWords, voc) = db.read(filename)
+for key, value in Config.Features.iteritems():
+    filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], value, Config.KMeans["TYPE"], settings["FEATURE_FILE"])
+    if db.checkFile(filename):
+        (image_paths, im_features, idf, numWords, voc) = db.read(filename)
+        Datasets[value] = (image_paths, im_features, idf, numWords, voc)
+
 
 def getQueryImage(image_path, cx=0, cy=0, cw=0, ch=0):
     if image_path.find("http") != -1:
@@ -68,13 +68,18 @@ def ranking(test_features, im_features, threshold):
     rank_ID = rank_ID[:len(decScore)]
     return (rank_ID, decScore)
 
-def searchImage(q, cx=0, cy=0, cw=0, ch=0):
+def searchImage(q, feature, cx=0, cy=0, cw=0, ch=0):
     try:
+        if (feature is None):
+            feature = settings["FEATURE"]
+
+        # load data features
+        (image_paths, im_features, idf, numWords, voc) = Datasets[feature]
+
         # load query image and crop
         query = getQueryImage(q, cx, cy, cw, ch)
-
+       
         # create descriptors vertically in a numpy array
-        feature = settings["FEATURE"]
         descriptors = createDescriptors(descriptorHandler, feature, query)
 
         # Calculate the histogram of features
