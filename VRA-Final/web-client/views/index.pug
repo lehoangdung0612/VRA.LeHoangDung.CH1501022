@@ -1,0 +1,29 @@
+extend layout
+
+block content
+    - var dataExternalUpload = externalUpload.toString();
+    - var dataSearchByAjax = searchByAjax.toString();
+    
+    #wrapper
+        .container
+            #img-container
+                .form-upload
+                    h4 Drop your image here:
+                    form#formUpload(action= urlAction, class="dropzone", data-external-upload= dataExternalUpload)
+                        div.fallback
+                            input(name="file", type="file")
+
+                if (externalUpload == true)
+                    .viewer(style="display:none")
+                        div#image-viewer
+                            img(src="#")
+
+                        form#search-frm(method="post", action= urlSearch, data-ajax-search= dataSearchByAjax)
+                            div.input-group
+                                input#query.span1(type="hidden", name="q")
+                                input#crop-x.span1(type="hidden", name="cx")
+                                input#crop-y.span1(type="hidden", name="cy")
+                                input#crop-w.span1(type="hidden", name="cw")
+                                input#crop-h.span1(type="hidden", name="ch")
+
+                            button#btn-submit(type="submit") Search

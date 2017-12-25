@@ -1,0 +1,163 @@
+/* demo styles */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+@import url("https://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css");
+
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
+
+#wrapper {
+  padding-top: 50px;
+}
+
+.headline {
+  background: -webkit-linear-gradient(left, #23bcd1, #357e5c);
+  background: linear-gradient(to right, #23bcd1, #357e5c);
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.headline::before, 
+.headline::after {
+  content: '';
+  height: 4px;
+  width: 100%;
+  background-color: lightblue;
+  display: block;
+  left: 0;
+  position: absolute;
+}
+
+.headline::before {
+  top: 0;
+}
+
+.headline::after {
+  bottom: 0;
+}
+
+.opacity-small {
+  opacity: 0.7;
+  filter: Alpha(opacity=70);
+}
+
+.opacity-medium {
+  opacity: 0.5;
+  filter: Alpha(opacity=50);
+}
+
+.opacity-large {
+  opacity: 0.25;
+  filter: Alpha(opacity=25);
+}
+
+#footer.fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#footer p {
+  padding: 20px 0;
+  margin: 0;
+  text-align: center;
+  background-color: #fff;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  z-index: 1005;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% { 
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+  } 100% { 
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+.form-upload {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 80%;
+}
+
+#search-frm {
+  display: table;
+  margin: 30px auto;
+}
+
+#image-viewer {
+  overflow: hidden;
+  display: table;
+  margin: 0 auto;
+}
+
+#image-viewer img {
+  width: 100%;
+}
+
+#img-container .list {
+  max-width: 600px;
+  margin: auto;
+}
+
+#img-container .image {
+  width: 100%;
+  display: block;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+#img-container .image.loading {
+  background: #1E1E1E url(../imgs/loader.gif) center center no-repeat;
+}
+
+#img-container .image img {
+  width: 100%;
+}
+
+#img-container .image .score {
+  text-align: center;
+}

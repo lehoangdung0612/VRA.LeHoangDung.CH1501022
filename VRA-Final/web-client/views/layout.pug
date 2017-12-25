@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    link(rel='stylesheet', href='/css/libs/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/libs/dropzone.css')
+    link(rel='stylesheet', href='/css/libs/Jcrop.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+    title Image Retrievel System
+  body
+    include blocks/header
+
+    #main-content
+      block content
+    
+    include blocks/footer
+
+    script(type="text/javascript", src='/js/libs/jquery-3.2.1.min.js')
+    script(type="text/javascript", src='/js/libs/dropzone.js')
+    script(type="text/javascript", src='/js/libs/Jcrop.min.js')
+    script(type="text/javascript", src='/js/libs/blazy.min.js')
+    script(type="text/javascript", src='/js/index.js')
