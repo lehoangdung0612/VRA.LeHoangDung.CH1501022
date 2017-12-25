@@ -1,0 +1,5 @@
+/python-backend/dataset/oxford5k/*.jpg
+
+/web-client/node_modules
+
+/web-client/public/uploaded
