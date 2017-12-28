@@ -16,7 +16,7 @@ from descriptors.feature import Descriptor
 db = DataBase()
 descriptorHandler = Descriptor(Config)
 settings = Config.Settings
-threshold = settings["SEARCH_THRESHOLD"]
+searchResult = settings["SEARCH_RESULT"]
 
 Datasets = {}
 
@@ -58,14 +58,13 @@ def calculateTFIDF(descriptors, idf, voc, numWords):
     test_features = preprocessing.normalize(test_features, norm='l2')
     return test_features
 
-def ranking(test_features, im_features, threshold):
+def ranking(test_features, im_features, searchResult):
     score = np.dot(test_features, im_features.T)
     rank_ID = np.argsort(-score[0])
     # sorted decending score
     decScore = sorted(score[0], reverse=True)
-    decScore = filter(lambda x: x >= threshold, decScore)
     # reduce ranking
-    rank_ID = rank_ID[:len(decScore)]
+    rank_ID = rank_ID[:searchResult]
     return (rank_ID, decScore)
 
 def searchImage(q, feature, cx=0, cy=0, cw=0, ch=0):
@@ -86,7 +85,7 @@ def searchImage(q, feature, cx=0, cy=0, cw=0, ch=0):
         test_features = calculateTFIDF(descriptors, idf, voc, numWords)
 
         # get distances and ranking result list
-        (rank_ID, decScore) = ranking(test_features, im_features, threshold)
+        (rank_ID, decScore) = ranking(test_features, im_features, searchResult)
 
         result = []
         for i, ID in enumerate(rank_ID):
