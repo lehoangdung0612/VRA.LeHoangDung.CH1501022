@@ -9,16 +9,15 @@ class RootSIFT:
  
     def describe(self, image, eps=1e-7):
         # compute SIFT descriptors
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         (kps, descs) = self.detector.detectAndCompute(image, None)
  
+        # if there are no keypoints or descriptors, return an empty tuple
         if len(kps) == 0:
             return ([], None)
  
         # apply the Hellinger kernel by first L1-normalizing and taking the
         # square-root
-        descs /= (descs.sum(axis=0) + eps)
+        descs /= (descs.sum(axis=1, keepdims=True) + eps)
         descs = np.sqrt(descs)
-        descs /= (np.linalg.norm(descs, axis=0, ord=2) + eps)
  
         return (kps, descs)

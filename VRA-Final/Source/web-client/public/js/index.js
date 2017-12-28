@@ -13,13 +13,13 @@
 
     function initLazyLoad() {
         var bLazy = new Blazy({
-            offset: 500,
+            offset: 1000,
             success: function(element){
                 setTimeout(function(){
                     $(element).closest('.loading').removeClass('loading')
                 }, 100);
             }
-       });
+        });
     }
 
     function initImageViewer(data) {
@@ -52,6 +52,7 @@
                     method: 'get',
                     url: $('#search-frm').attr('action'),
                     data: $('#search-frm').serialize(),
+                    timeout: 5000,
                     beforeSend: function () {
                         $('body').append('<div class="overlay"><div class="spinner"></div></div>');
                     },
@@ -61,10 +62,12 @@
                             for (var i = 0; i < result.data.length; i++) {
                                 list.push(
                                     '<li class="image loading">' + 
-                                        '<a class="link" href="' + result.data[i].image + '" target="_blank">' + 
-                                            '<img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' + result.data[i].image + '">' +
-                                        '</a>' + 
-                                        '<div class="score">Score = ' + result.data[i].score + '</div>' +
+                                        '<div class="content">' + 
+                                            '<a class="link" href="' + result.data[i].image + '" target="_blank">' + 
+                                                '<img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' + result.data[i].image + '">' +
+                                            '</a>' + 
+                                            '<div class="score">Score = ' + result.data[i].score + '</div>' +
+                                        '</div>' +
                                     '</li>'
                                 );
                             }
@@ -76,8 +79,13 @@
                             $('#img-container').html('<h4>' + result.error + '</h4>');
                         }
                         $('.overlay').remove();
+                    },
+                    error: function (jqXHR , status, e) {
+                        if (status === 'timeout') {
+                            $('#btn-submit').click();
+                        }
                     }
-                })
+                });
             });
         } else {
             ///search by submiting form to Python API

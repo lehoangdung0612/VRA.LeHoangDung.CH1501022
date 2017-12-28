@@ -29,7 +29,7 @@ def extractFeatures(descriptorMethod, feature, imageFiles):
         # describe the image
         print "Extracting {} of {}, image of {}/{}".format(feature.upper(), imageID, i+1, len(imageFiles))
         (kps, data) = descriptorMethod.extractFeatures(feature, image)
-        
+
         if len(kps) > 0:
             # Create descriptors
             image_paths += [imagePath]
@@ -59,9 +59,9 @@ def kMeansClustering(kmeansType, descriptors, numWords, iterations):
         kmeans3.fit(descriptors)
         (voc, variance) = (kmeans3.cluster_centers_, kmeans3.labels_)
     elif kmeansType == 2:
-        (voc, variance) = scipy.cluster.vq.kmeans2(descriptors, numWords, iterations)
+        (voc, variance) = scipy.cluster.vq.kmeans2(descriptors.astype(float), numWords, iterations)
     else:
-        (voc, variance) = scipy.cluster.vq.kmeans(descriptors, numWords, iterations)
+        (voc, variance) = scipy.cluster.vq.kmeans(descriptors.astype(float), numWords, iterations)
     return (voc, variance)
 
 
