@@ -27,7 +27,7 @@ def extractFeatures(descriptorMethod, feature, imageFiles):
         image = cv2.imread(imagePath)
 
         # describe the image
-        print "Extracting {} of {}, image {}/{}".format(feature.upper(), imageID, i+1, len(imageFiles))
+        print "Extracting {} of {}, image of {}/{}".format(feature.upper(), imageID, i+1, len(imageFiles))
         (kps, data) = descriptorMethod.extractFeatures(feature, image)
         
         if len(kps) > 0:
@@ -51,14 +51,14 @@ def createDescriptors(des_list, imageFiles):
     return descriptors
 
 
-def kMeansClustering(descriptors, numWords, iterations):
+def kMeansClustering(kmeansType, descriptors, numWords, iterations):
     print "Clustering k-means: %d words, %d descriptors" %(numWords, descriptors.shape[0])
     
-    if Config.KMeans["TYPE"] == 3:
+    if kmeansType == 3:
         kmeans3 = sklearn.cluster.KMeans(n_clusters=numWords, max_iter=iterations)
         kmeans3.fit(descriptors)
         (voc, variance) = (kmeans3.cluster_centers_, kmeans3.labels_)
-    elif Config.KMeans["TYPE"] == 2:
+    elif kmeansType == 2:
         (voc, variance) = scipy.cluster.vq.kmeans2(descriptors, numWords, iterations)
     else:
         (voc, variance) = scipy.cluster.vq.kmeans(descriptors, numWords, iterations)
@@ -90,18 +90,20 @@ def main():
         # initialize variable
         db = DataBase()
         settings = Config.Settings
-        filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], settings["FEATURE"], Config.KMeans["TYPE"], settings["FEATURE_FILE"])
-        
+        feature = settings["FEATURE"]
+        kmeansType = Config.KMeans["TYPE"]
+        filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], feature, kmeansType, settings["FEATURE_FILE"])
+
         if db.checkFile(filename):
             (image_paths, im_features, idf, numWords, voc) = db.read(filename)
         else:
             descriptorHandler = Descriptor(Config)
-            feature = settings["FEATURE"]
             numWords = Config.KMeans["NUM_WORDS"]
             iterations = Config.KMeans["ITER"]
             imageFiles = glob.glob("{}/{}/*.*".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"]))
 
             if len(imageFiles) > settings["MAX_FILES"]:
+                np.random.shuffle(imageFiles)
                 imageFiles = imageFiles[:settings["MAX_FILES"]]
 
             # Extract features of images
@@ -113,10 +115,10 @@ def main():
             # Perform k-means clustering
             if (descriptors.shape[0] / numWords) < 100:
                 numWords = numWords / 100
-            (voc, variance) = kMeansClustering(descriptors, numWords, iterations)
+            (voc, variance) = kMeansClustering(kmeansType, descriptors, numWords, iterations)
 
             # Calculate the TF-IDF of features
-            filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], settings["FEATURE"], Config.KMeans["TYPE"], settings["FEATURE_FILE"])
+            filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], feature, kmeansType, settings["FEATURE_FILE"])
             (im_features, idf) = calculateTFIDF(des_list, voc, variance, numWords, len(image_paths))
             db.write(filename, (image_paths, im_features, idf, numWords, voc))
 
