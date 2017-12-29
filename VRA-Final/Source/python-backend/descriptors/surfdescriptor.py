@@ -8,6 +8,7 @@ class SURF:
         return;
 
     def describe(self, image):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         (kps, descs) = self.detector.detectAndCompute(image, None)
 
         if len(kps) == 0:

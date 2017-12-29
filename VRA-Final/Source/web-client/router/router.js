@@ -51,7 +51,7 @@ router.post('/file-upload', function(req, res) {
 			    if (err) {
 			        console.error(err);
 			    } else {
-			        console.log("success!")
+			        console.log("Upload successfully!")
 			    }
 			});
 		});
