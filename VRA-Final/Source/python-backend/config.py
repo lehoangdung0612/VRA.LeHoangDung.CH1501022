@@ -15,7 +15,7 @@ class Config:
     }
     KMeans = {
         "TYPE"                  : 1
-        , "NUM_WORDS"           : 200
+        , "NUM_WORDS"           : 500
         , "ITER"                : 5
     }
     Resources = {

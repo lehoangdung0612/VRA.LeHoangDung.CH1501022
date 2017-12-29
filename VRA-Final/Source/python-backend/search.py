@@ -16,8 +16,6 @@ from descriptors.feature import Descriptor
 db = DataBase()
 descriptorHandler = Descriptor(Config)
 settings = Config.Settings
-searchResult = settings["SEARCH_RESULT"]
-
 Datasets = {}
 
 for key, value in Config.Features.iteritems():
@@ -69,6 +67,7 @@ def ranking(test_features, im_features, searchResult):
 
 def searchImage(q, feature, cx=0, cy=0, cw=0, ch=0):
     try:
+        searchResult = settings["SEARCH_RESULT"]
         if (feature is None):
             feature = settings["FEATURE"]
 
