@@ -4,6 +4,7 @@
 # import the necessary packages
 import glob
 import cv2
+import argparse
 import numpy as np
 import scipy.cluster
 import sklearn.cluster
@@ -15,6 +16,13 @@ import traceback
 from database import DataBase
 from config import Config
 from descriptors.feature import Descriptor
+
+# construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-f", "--feature", help = "Feature for extraction")
+ap.add_argument("-t", "--type", help = "KMeans type for clustering")
+args = vars(ap.parse_args())
+
 
 def extractFeatures(descriptorMethod, feature, imageFiles):
     image_paths = []
@@ -90,8 +98,16 @@ def main():
         # initialize variable
         db = DataBase()
         settings = Config.Settings
-        feature = settings["FEATURE"]
-        kmeansType = Config.KMeans["TYPE"]
+        if args["feature"] is None:
+            feature = settings["FEATURE"]
+        else:
+            feature = args["feature"]
+
+        if args["type"] is None:
+            kmeansType = Config.KMeans["TYPE"]
+        else:
+            kmeansType = args["type"]
+
         filename = "{}/{}_{}_kmeans{}_{}".format(settings["ROOT_DATASET_FOLDER"], settings["TRAIN_DATASET"], feature, kmeansType, settings["FEATURE_FILE"])
 
         if db.checkFile(filename):
