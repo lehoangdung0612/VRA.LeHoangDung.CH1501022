@@ -36,9 +36,9 @@
 	* Config
 		- Open file config.py
 			Settings = {
-				"SEARCH_THRESHOLD" 		: 0.7				// threshold to evaluate result image
+				"SEARCH_RESULT" 		: 100				// number images are responsed
 				, "MAX_FILES" 			: 100				// max length of images to train
-				, "FEATURE" 			: "rootsift"			// type of feature
+				, "FEATURE" 			: "rootsift"		// type of feature
 				, "ROOT_DATASET_FOLDER" : "dataset" 		// folder stored train images 
 				, "TRAIN_DATASET"		: "oxford5k"		// name of subfolder in ROOT_DATASET_FOLDER
 				, "FEATURE_FILE" 		: "features.bin"	// name of stored file
