@@ -55,7 +55,7 @@
                                 list.push(
                                     '<li class="image loading">' + 
                                         '<div class="content">' + 
-                                            '<a class="link" href="/detail?id=' + encodeURIComponent(result.data[i].image) +
+                                            '<a class="link" href="/detail?id=' + encodeURIComponent(result.data[i].image) + '">' +
                                                 '<img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' + result.data[i].image + '">' +
                                             '</a>' + 
                                             '<div class="score">Score = ' + result.data[i].score + '</div>' +
