@@ -51,11 +51,11 @@ def searchImage():
     cw = request.values.get("cw", default = 0, type = int)
     ch = request.values.get("ch", default = 0, type = int)
     feature = request.values.get("feature", type = str)
-    count = request.values.get("count", type = int)
+    maxSize = request.values.get("maxSize", type = int)
     q = urllib.unquote(q).decode("utf8")
     
     print "Search images with query is '{}'".format(q)     
-    result = search.searchImage(q, feature, count, cx, cy, cw, ch)
+    result = search.searchImage(q, feature, maxSize, cx, cy, cw, ch)
 
     if result == None:
         return jsonify({ "error": "No images are found" })
