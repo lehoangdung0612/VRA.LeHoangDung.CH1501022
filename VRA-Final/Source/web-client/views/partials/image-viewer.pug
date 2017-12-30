@@ -14,15 +14,22 @@ form#search-frm(method="post", action= urlAction, data-ajax-search= dataSearchBy
         div Please select a feature:
             span.radio
                 label
-                    input(type="radio", name="feature", value="sift", checked)
-                    | SIFT
+                    input(type="radio", name="feature", value="surf", checked)
+                    | SURF
             span.radio
                 label
-                    input(type="radio", name="feature", value="surf")
-                    | SURF
+                    input(type="radio", name="feature", value="sift")
+                    | SIFT
             span.radio
                 label
                     input(type="radio", name="feature", value="rootsift")
                     | ROOTSIFT
+        div Please select total of result: 
+            select#result-len(name="count")
+                option(value=10) 10
+                option(value=20) 20
+                option(value=30, selected) 30
+                option(value=50) 50
+                option(value=100) 100
 
     button#btn-submit(type="submit") Search

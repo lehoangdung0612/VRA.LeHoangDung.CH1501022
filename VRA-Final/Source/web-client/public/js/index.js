@@ -22,29 +22,21 @@
         });
     }
 
-    function initImageViewer(data) {
-        if ($('#formUpload').data('external-upload')) {
-            ///upload data to Python host
-            $('#image-viewer img').attr('src', data.fileSrc);
-            $('#query').val(data.fileName);
-            $('.viewer').show();
-            $('.form-upload').hide();
-        } else {
-            ///upload data to this host
-            $('#img-container').html(data);
-        }
-
-        $('#image-viewer img').Jcrop({
+    function initJcrop(element) {
+        $(element).Jcrop({
             boxWidth: 600,
             onChange: recCoords,
             onSelect: recCoords
         });
+    }
 
+    function handleFormAction() {
         if ($('#search-frm').data('ajax-search')) {
             ///search by call ajax to Python API
             $('#btn-submit').on('click', function (e) {
                 e.preventDefault();
                 var template =  '<div id="search-container">' +
+                                    '<a id="back-to-search" href="/">&larr; Back to search</a>' + 
                                     '<h4>Showing results of {0} images</h4>' + 
                                     '<ol class="list" type="1">{1}</ol>' +
                                 '</div>';
@@ -63,7 +55,7 @@
                                 list.push(
                                     '<li class="image loading">' + 
                                         '<div class="content">' + 
-                                            '<a class="link" href="' + result.data[i].image + '" target="_blank">' + 
+                                            '<a class="link" href="/detail?id=' + encodeURIComponent(result.data[i].image) +
                                                 '<img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' + result.data[i].image + '">' +
                                             '</a>' + 
                                             '<div class="score">Score = ' + result.data[i].score + '</div>' +
@@ -95,6 +87,22 @@
         }
     }
 
+    function initImageViewer(data) {
+        if ($('#formUpload').data('external-upload')) {
+            ///upload data to Python host
+            $('#image-viewer img').attr('src', data.fileSrc);
+            $('#query').val(data.fileName);
+            $('.viewer').show();
+            $('.form-upload').hide();
+        } else {
+            ///upload data to this host
+            $('#img-container').html(data);
+        }
+
+        initJcrop($('#image-viewer img'));
+        handleFormAction();
+    }
+
     function recCoords (c) {
         $('#crop-x').val(Math.round(c.x));
         $('#crop-y').val(Math.round(c.y));
@@ -111,6 +119,8 @@
 
     updateMainHeight();
     initLazyLoad();
+    initJcrop($('#image-viewer img:visible'));
+    handleFormAction();
 
     setTimeout(function () {
         updateMainHeight();

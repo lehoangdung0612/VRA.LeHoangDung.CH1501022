@@ -6,13 +6,15 @@ block content
         .container
             if data.length > 0
                 div#img-container
-                    h4 Showing results of #{data.length} images
-                    ol.list(type="1")
-                        each item in data
-                            li.image.loading
-                                .content
-                                    a.link(href= item.image, target="_blank")
-                                        img.b-lazy(src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", data-src= item.image)
-                                    div.score Score = #{item.score}
+                    #search-container
+                        a#back-to-search(href="/") &larr; Back to search
+                        h4 Showing results of #{data.length} images
+                        ol.list(type="1")
+                            each item in data
+                                li.image.loading
+                                    .content
+                                        a.link(href= "/detail?id=" + encodeURIComponent(item.image))
+                                            img.b-lazy(src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", data-src= item.image)
+                                        div.score Score = #{item.score}
             else
                 h4 No images are found

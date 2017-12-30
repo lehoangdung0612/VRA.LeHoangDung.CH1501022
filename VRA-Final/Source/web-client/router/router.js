@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
     	res.render('index', { 
     		title: 'Home',
     		urlAction: config.externalUpload ? config.pyAPI.upload : '/file-upload',
-    		urlSearch: config.externalUpload ? config.pyAPI.search : null,
+    		urlSearch: config.searchByAjax ? config.pyAPI.search : '/search',
     		externalUpload: config.externalUpload,
     		searchByAjax: config.searchByAjax
     	});
@@ -81,6 +81,25 @@ router.post('/search', function(req, res) {
 			}
 		})
 		return;
+    } catch (e) {
+        console.log('Request error: ', e);
+    }
+});
+
+router.get('/detail', function(req, res) {
+    try {
+        var imageURL = decodeURIComponent(req.query.id);
+        if (imageURL) {
+            res.render('detail', {
+                query: imageURL.replace(config.pyAPI.host, ''),
+                imageURL: imageURL,
+                urlAction: config.searchByAjax ? config.pyAPI.search : '/search',
+                searchByAjax: config.searchByAjax
+            });
+        } else {
+            res.redirect('/');
+        }
+        return;
     } catch (e) {
         console.log('Request error: ', e);
     }

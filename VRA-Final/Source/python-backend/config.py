@@ -3,7 +3,7 @@ class Config:
     Settings = {
         "SEARCH_RESULT"         : 100
         , "MAX_FILES"           : 1000
-        , "FEATURE"             : "sift"
+        , "FEATURE"             : "rootsift"
         , "ROOT_DATASET_FOLDER" : "dataset"
         , "TRAIN_DATASET"       : "corel"
         , "FEATURE_FILE"        : "features.bin"
@@ -14,7 +14,7 @@ class Config:
         , "ROOTSIFT"            : "rootsift"
     }
     KMeans = {
-        "TYPE"                  : 1
+        "TYPE"                  : 3
         , "NUM_WORDS"           : 500
         , "ITER"                : 5
     }

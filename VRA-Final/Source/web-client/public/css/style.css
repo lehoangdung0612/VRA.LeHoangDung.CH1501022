@@ -118,7 +118,7 @@ body{
 
 #search-frm {
   display: table;
-  margin: 30px auto;
+  padding: 30px;
 }
 
 #image-viewer {
@@ -131,7 +131,8 @@ body{
   width: 100%;
 }
 
-#img-container {
+#img-container,
+#img-container .viewer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,9 +174,22 @@ body{
 }
 
 .radio-group .radio {
-    padding:  0 15px;
+  padding:  0 15px;
 }
 
 .radio-group .radio input {
-    margin-right: 5px;
+  margin-right: 5px;
+}
+
+#search-container {
+  margin-bottom: 50px;
+}
+
+#back-to-search {
+  margin: 10px 0;
+  width: 100%;
+  display: block;
+  color: black;
+  font-size: 16px;
+  text-decoration: none;
 }

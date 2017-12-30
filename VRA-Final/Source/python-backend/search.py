@@ -33,6 +33,8 @@ def getQueryImage(image_path, cx=0, cy=0, cw=0, ch=0):
     else:
         if (image_path.find("/") == -1) and (image_path.find("\\") == -1):
             query = cv2.imread("{}/{}".format(Config.Resources["UPLOAD_FOLDER"], image_path))
+        elif (image_path.find(settings["ROOT_DATASET_FOLDER"]) == -1):
+            query = cv2.imread("{}/{}".format(settings["ROOT_DATASET_FOLDER"], image_path))
         else:
             query = cv2.imread(image_path)
 
@@ -65,9 +67,10 @@ def ranking(test_features, im_features, searchResult):
     rank_ID = rank_ID[:searchResult]
     return (rank_ID, decScore)
 
-def searchImage(q, feature, cx=0, cy=0, cw=0, ch=0):
+def searchImage(q, feature, searchResult, cx=0, cy=0, cw=0, ch=0):
     try:
-        searchResult = settings["SEARCH_RESULT"]
+        if (searchResult is None):
+            searchResult = settings["SEARCH_RESULT"]
         if (feature is None):
             feature = settings["FEATURE"]
 

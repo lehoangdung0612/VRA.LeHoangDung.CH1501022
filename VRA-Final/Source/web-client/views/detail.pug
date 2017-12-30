@@ -1,0 +1,42 @@
+extend layout
+
+block content
+    - var dataSearchByAjax = searchByAjax.toString();
+    
+    #wrapper
+        .container
+            #img-container
+                div#image-viewer
+                    img(src= imageURL)
+
+                form#search-frm(method="post", action= urlAction, data-ajax-search= dataSearchByAjax)
+                    div.input-group
+                        input#query(type="hidden", name="q", value= query)
+                        input#crop-x(type="hidden", name="cx")
+                        input#crop-y(type="hidden", name="cy")
+                        input#crop-w(type="hidden", name="cw")
+                        input#crop-h(type="hidden", name="ch")
+                    div.radio-group
+                        div Please select a feature:
+                            span.radio
+                                label
+                                    input(type="radio", name="feature", value="surf", checked)
+                                    | SURF
+                            span.radio
+                                label
+                                    input(type="radio", name="feature", value="sift")
+                                    | SIFT
+                            span.radio
+                                label
+                                    input(type="radio", name="feature", value="rootsift")
+                                    | ROOTSIFT
+                        div Please select total of result: 
+                            select#result-len(name="count")
+                                option(value=10) 10
+                                option(value=20) 20
+                                option(value=30, selected) 30
+                                option(value=50) 50
+                                option(value=100) 100
+
+
+                    button#btn-submit(type="submit") Search

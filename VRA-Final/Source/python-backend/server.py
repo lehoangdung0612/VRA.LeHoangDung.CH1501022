@@ -51,10 +51,11 @@ def searchImage():
     cw = request.values.get("cw", default = 0, type = int)
     ch = request.values.get("ch", default = 0, type = int)
     feature = request.values.get("feature", type = str)
+    count = request.values.get("count", type = int)
     q = urllib.unquote(q).decode("utf8")
     
     print "Search images with query is '{}'".format(q)     
-    result = search.searchImage(q, feature, cx, cy, cw, ch)
+    result = search.searchImage(q, feature, count, cx, cy, cw, ch)
 
     if result == None:
         return jsonify({ "error": "No images are found" })
@@ -71,5 +72,5 @@ def searchImage():
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=5000, threaded=True)
      

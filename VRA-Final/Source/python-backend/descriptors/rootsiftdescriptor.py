@@ -17,9 +17,8 @@ class RootSIFT:
             return ([], None)
  
         # apply the Hellinger kernel by first L1-normalizing, taking the
-        # square-root, and then L2-normalizing
-        descs /= (descs.sum(axis=0) + eps)
+        # square-root
+        descs /= (descs.sum(axis=1, keepdims=True) + eps)
         descs = np.sqrt(descs)
-        descs /= (np.linalg.norm(descs, axis=0, ord=2) + eps)
- 
+
         return (kps, descs)
