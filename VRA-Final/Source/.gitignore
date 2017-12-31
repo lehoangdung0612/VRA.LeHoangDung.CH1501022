@@ -3,3 +3,4 @@
 /python-backend/*.pyc
 /web-client/node_modules
 /web-client/public/uploaded
+/python-backend/dataset/uploaded
